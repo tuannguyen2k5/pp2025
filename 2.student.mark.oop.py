@@ -53,6 +53,7 @@ class MarkManagement():
         for s in self.students:
             mark_value = input(f"Mark for {s.name}:")
             m = Mark()
+            m.name = s.name
             m.student_id = s.id
             m.course_id = course_id
             m.mark = mark_value
@@ -72,12 +73,12 @@ class MarkManagement():
         print(f"\n=== Marks for course {course_id} ===")
         for m in self.marks:
             if m.course_id == course_id:
-                print(f"{m.student_id}:{m.mark}")
+                print(f"Name: {m.name} - {m.student_id} :{m.mark}")
         
 Management = MarkManagement()
 Management.inputStudents()
-Management.inputCourses()
-Management.inputMarks()
 Management.displayStudents()
+Management.inputCourses()
 Management.displayCourses()
+Management.inputMarks()
 Management.showMarks()
