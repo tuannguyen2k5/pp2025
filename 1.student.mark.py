@@ -6,8 +6,15 @@ marks = {} #{course_id: {student_id: mark}}
 def information_student():
     student_name = input("Enter the student name: ")
     student_id = input("enter the student id: ")
-    student_Dob = input("enter date of birth: ")
+    
 
+    for s in students:
+        if s["id"] == student_id:
+            print("Student ID already exists! Please re-enter.")
+            return information_student()
+        
+    student_Dob = input("enter date of birth: ")
+    
     students.append({
         "id" : student_id, 
         "name": student_name, 
@@ -29,6 +36,12 @@ def input_student():
 def information_course():
     course_name = input("enter course name: ")
     course_id = input("enter course ID: ")
+
+    for c in courses:
+        if c["id"] == course_id:
+            print("Course ID already exists! Please re-enter.")
+            return information_course()
+        
     courses.append({
         "id": course_id,
         "name": course_name
@@ -48,11 +61,20 @@ def input_course():
 # Marks
 
 def input_marks():
+    if not students:
+        print("No students available!")
+        return
+    if not courses:
+        print("No courses available!")
+        return
     print("\nAvailable courses: ")
     for i, c in enumerate(courses): # vòng lặp for sử dụng enumerate()
         print(f"{i+1}.{c['name']} (ID: {c['id']})")
 
     choice = int(input("\nSelect a course by number: ")) - 1
+    if choice <0 or choice >= len(courses):
+        print("Invalid course selection!")
+        return
     course_id = courses[choice]["id"]
     """
     courses là list các dictionary
@@ -63,7 +85,11 @@ def input_marks():
 
     print(f"\nEnter marks for course: {courses[choice]['name']}")
     for s in students:
-        score = float(input(f"Enter mark for {s['name']} (ID: {s['id']}): "))
+        while True:
+            score = float(input(f"Enter mark for {s['name']} (ID: {s['id']}): "))
+            if 0<= score <=20:
+                break
+            print("Invalid mark! Enter a value between 0 and 20.")
         marks[course_id][s["id"]]= score
     print("\nMarks input successfully!")
 
@@ -83,6 +109,9 @@ def show_marks():
         print(f"{i+1}. {c['name']} (ID: {c['id']})")
 
     choice = int(input("\nSelect a course to view marks: ")) - 1
+    if choice <0 or choice >= len(courses):
+        print("Invalid course selection!")
+        return
     course_id = courses[choice]["id"]
 
     print(f"\n=== Marks for course: {courses[choice]['name']} ===")
