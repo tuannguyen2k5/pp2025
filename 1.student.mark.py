@@ -4,8 +4,8 @@ marks = {} #{course_id: {student_id: mark}}
 
 # STUDENTS
 def information_student():
-    student_id = input("enter the student id: ")
     student_name = input("Enter the student name: ")
+    student_id = input("enter the student id: ")
     student_Dob = input("enter date of birth: ")
 
     students.append({
@@ -15,26 +15,35 @@ def information_student():
     })
 def input_student():
     n = int(input("enter the number of students in a class: "))
+    while n < 1:
+        print(f"Invalid number of students!!")
+        n = int(input("enter the number of students in a class: "))
+    
     for i in range(n):
         print(f"\n--- Student {i+1} ---")
         information_student()
     print("\nStudent input successfully!!")
+    return n
 # =========
 #COURSE
 def information_course():
-    course_id = input("enter course ID: ")
     course_name = input("enter course name: ")
-
+    course_id = input("enter course ID: ")
     courses.append({
         "id": course_id,
         "name": course_name
     })
 def input_course():
     n = int(input("\nEnter number of the courses: "))
+    while n<1:
+        print(f"Invalid number of courses!!")
+        n = int(input("\nEnter number of the courses: "))
+    
     for i in range(n):
         print(f"\n--- course {i+1} ---")
         information_course()
     print("\nCourses input successfully!!")
+    return n
 
 # Marks
 
